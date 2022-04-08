@@ -4,7 +4,7 @@ import os
   
 # use glob to get all the csv files
 # in the folder
-path = '/home/leeld/Downloads/files'
+path = r"/home/leeld/Downloads/files"
 csv_files = glob.glob(os.path.join(path, "*.xlsx"))
   
   
@@ -22,4 +22,4 @@ appended_df = pd.concat(all_df_list)
 
 # Write the appended dataframe to an excel file
 # Add index=False parameter to not include row numbers
-appended_df.to_excel("DRS_export(all-counties)", index=False)
+appended_df.to_excel ("DRS_export(all-counties).xlsx", index=False)
