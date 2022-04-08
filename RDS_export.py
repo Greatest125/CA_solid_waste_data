@@ -5,12 +5,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
-path='/home/leeld/Downloads/files'
+chromeOptions = webdriver.ChromeOptions()
+prefs = {"download.default_directory" : "/home/leeld/Downloads/files"}
+#change the directory to the whatever you want
+chromeOptions.add_experimental_option("prefs",prefs)
+chromedriver = "/usr/bin/chromedriver"
+#you need to change the path of the chromedriver depending on your setup (I'm on Lubuntu 20.04)
+driver = webdriver.Chrome(executable_path=chromedriver, options=chromeOptions)
 
-driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 20)
 
 url = "https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/ExportByCounty"
+
 
 driver.get(url)
 
