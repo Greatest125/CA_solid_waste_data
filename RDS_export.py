@@ -1,3 +1,4 @@
+#Downloads RDS (data <=2019) EXPORT (import not tracked) data which does not track waste type from this website: https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/ExportByCounty
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
