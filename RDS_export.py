@@ -15,11 +15,9 @@ chromeOptions.add_experimental_option("prefs",prefs)
 chromedriver = "/usr/bin/chromedriver"
 #you need to change the path of the chromedriver depending on your setup (I'm on Lubuntu 20.04)
 driver = webdriver.Chrome(executable_path=chromedriver, options=chromeOptions)
-
 wait = WebDriverWait(driver, 20)
 
 url = "https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/ExportByCounty"
-
 
 driver.get(url)
 
@@ -60,5 +58,5 @@ for file in filenames:
 
    # appending data of excel files
    outputxlsx = outputxlsx.append( df, ignore_index=True)
-print('Final Excel sheet now generated at the same location:')
-outputxlsx.to_excel("/home/leeld/Downloads/files/RDS_export(all-date).xlsx", index=False)
+print('All spreadsheets merged into one file ("RDS_export(all-counties)"')
+outputxlsx.to_excel("/home/leeld/Downloads/files/RDS_export(all-counties).xlsx", index=False)
