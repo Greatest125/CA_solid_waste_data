@@ -55,7 +55,8 @@ for file in filenames:
    # using concat for excel files
    # after reading them with read_excel()
    df = pd.concat(pd.read_excel( file, sheet_name=None), ignore_index=True, sort=False)
-
+   #Clean up unwanted text from spreadsheet
+   df = df[~df['Unnamed: 0'].isin(['Quarterly Export Tons by Origin County and Jurisidiction', 'No Records Found'])]
    # appending data of excel files
    outputxlsx = outputxlsx.append( df, ignore_index=True)
 print('All spreadsheets merged into one file ("RDS_export(all-counties)"')
