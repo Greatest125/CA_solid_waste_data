@@ -61,3 +61,7 @@ for file in filenames:
    outputxlsx = outputxlsx.append( df, ignore_index=True)
 print('All spreadsheets merged into one file ("RDS_export(all-counties)"')
 outputxlsx.to_excel("/home/leeld/Downloads/files/RDS_export(all-counties).xlsx", index=False)
+#Delete data files for each county
+for filename in glob.glob("/home/leeld/Downloads/files/ExportByCounty*"):
+    os.remove(filename) 
+print('Deleting data spreadsheets')
