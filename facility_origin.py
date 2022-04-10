@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common import exceptions  
 import time
 import pandas as pd
 import glob
@@ -30,11 +31,15 @@ total_facilities = len(facilities)
 print(f"Total facilities: {total_facilities - 1}")
 btn = driver.find_element(By.XPATH, '//button[@id="SearchButton"]')
 
-for i in range(1, len(facilities)):
-    print(f"Clicking Facility - {facilities[i].text}")
+try:
+    for i in range(1, len(facilities)):
+        print(f"Clicking Facility - {facilities[i].text}")
     facilities[i].click()
     btn.click()
     time.sleep(2)
+except exceptions.StaleElementReferenceException:
+    pass
+    print('Timeout error -- double-check the number of files ultimately downloaded')
 driver.close()
 
 #Merge all of the spreadsheets (one for each facility) into one master spreadsheet 
