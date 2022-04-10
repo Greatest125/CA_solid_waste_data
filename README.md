@@ -14,6 +14,8 @@ The python scripts in this repository will allow you to download solid waste dat
 * NOT broken up by waste type (but you can extrapolate this w/ waste characterization [studies](https://www2.calrecycle.ca.gov/wastecharacterization/study))
 * Script to download [here](https://github.com/Greatest125/CA_solid_waste_data/blob/main/facility_origin.py)
 
+### [Facility IDs ](https://www2.calrecycle.ca.gov/SolidWaste/Site/Search)
+
 # Background information
 These scripts were created after consultation with CalRecycle employees. For more information, on all the available datasets for solid waste data and disclaimers about this data, see [this](https://drive.google.com/drive/u/0/folders/14Bdnm6pYQJ6eFdCyBcy0Ez42CSEU0zkg) Google folder.
 
