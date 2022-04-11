@@ -17,6 +17,8 @@ The python scripts in this repository will allow you to download solid waste dat
 
 ### [Facility IDs ](https://www2.calrecycle.ca.gov/SolidWaste/Site/Search)
 
+## RDRS (Recycling and Disposal Reporting System) - 2019 to present
+
 # Background information
 These scripts were created after consultation with CalRecycle employees. For more information, on all the available datasets for solid waste data and disclaimers about this data, see [this](https://drive.google.com/drive/u/0/folders/14Bdnm6pYQJ6eFdCyBcy0Ez42CSEU0zkg) Google folder.
 
