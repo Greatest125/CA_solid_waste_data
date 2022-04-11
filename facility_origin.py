@@ -3,12 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common import exceptions  
 import time
 import pandas as pd
 import glob
 import os
-import sys
 
 chromeOptions = webdriver.ChromeOptions()
 prefs = {"download.default_directory" : "/home/leeld/Downloads/files"}
@@ -32,46 +30,31 @@ total_facilities = len(facilities)
 print(f"Total facilities: {total_facilities - 1}")
 btn = driver.find_element(By.XPATH, '//button[@id="SearchButton"]')
 
-for i in range(1, len(facilities)):
+for i in range(1, 70):
     print(f"Clicking Facility - {facilities[i].text}")
-    try:
-        facilities[i].click()
-        btn.click()
-        time.sleep(2)
-    except exceptions.StaleElementReferenceException:
-        print('Timeout error on the CalRecycle page. Manually download the rest of the spreadsheets before the timer runs out!')
-        for remaining in range(300, 0, -1):
-            sys.stdout.write("\r")
-        sys.stdout.write("{:2d} seconds remaining.".format(remaining))
-        sys.stdout.flush()
-        time.sleep(1)
-        sys.stdout.write("\rThe script will now merge the spreadsheets!            \n")
-        #Merge all of the spreadsheets (one for each facility) into one master spreadsheet 
-        os.chdir("/home/leeld/Downloads/files")
-        extensions = ("*xlsx")
-        filenames = []  # made 'filename' plural to indicate it's a list
-        # building list of filenames moved to separate loop
-        for files in extensions: 
-            filenames.extend(glob.glob(files)) 
-        # getting excel files to be merged
-        print('File names:', filenames)
-        # empty data frame for the new output excel file with the merged excel files
-        outputxlsx = pd.DataFrame()
-        # for loop to iterate all excel files
-        for file in filenames:
-        # using concat for excel files
-        # after reading them with read_excel()
-            df = pd.concat(pd.read_excel( file, sheet_name=None), ignore_index=True, sort=False)
-        #Clean up unwanted text from spreadsheet
-            df = df[~df['Unnamed: 0'].isin(['Jurisdiction or Origin Waste Disposal By Facility'])]
-        # appending data of excel files
-        outputxlsx = outputxlsx.append( df, ignore_index=True)
-        print('All spreadsheets merged into one file ("RDS_FacilityReports(origin data).xlsx"')
-        outputxlsx.to_excel("/home/leeld/Downloads/files/RDS_FacilityReports(origin data).xlsx", index=False)
-        #Delete data files for each county
-        for filename in glob.glob("/home/leeld/Downloads/files/FacilitySummary*"):
-            os.remove(filename) 
-        print('Deleting data spreadsheets')
+    facilities[i].click()
+    btn.click()
+    time.sleep(2)
+driver.close()
+
+driver = webdriver.Chrome(executable_path=chromedriver, options=chromeOptions)
+wait = WebDriverWait(driver, 20)
+driver.get(url)
+dropdown = driver.find_element(By.ID, "ReportType")
+dropdown.find_element(By.XPATH, "//option[. = 'Jurisdiction of Origin Waste Disposal']").click()
+select_el = wait.until(EC.presence_of_element_located((By.XPATH, '//select[@id="LandfillName"]')))
+facilities = select_el.find_elements(By.TAG_NAME, 'option')
+total_facilities = len(facilities)
+
+# len - 1 because the 1st option is blank
+print(f"Total facilities: {total_facilities - 1}")
+btn = driver.find_element(By.XPATH, '//button[@id="SearchButton"]')
+
+for i in range(70, len(facilities)):
+    print(f"Clicking Facility - {facilities[i].text}")
+    facilities[i].click()
+    btn.click()
+    time.sleep(2)
 driver.close()
 
 #Merge all of the spreadsheets (one for each facility) into one master spreadsheet 
