@@ -30,27 +30,7 @@ total_facilities = len(facilities)
 print(f"Total facilities: {total_facilities - 1}")
 btn = driver.find_element(By.XPATH, '//button[@id="SearchButton"]')
 
-for i in range(1, 70):
-    print(f"Clicking Facility - {facilities[i].text}")
-    facilities[i].click()
-    btn.click()
-    time.sleep(2)
-driver.close()
-
-driver = webdriver.Chrome(executable_path=chromedriver, options=chromeOptions)
-wait = WebDriverWait(driver, 20)
-driver.get(url)
-dropdown = driver.find_element(By.ID, "ReportType")
-dropdown.find_element(By.XPATH, "//option[. = 'Jurisdiction of Origin Waste Disposal']").click()
-select_el = wait.until(EC.presence_of_element_located((By.XPATH, '//select[@id="LandfillName"]')))
-facilities = select_el.find_elements(By.TAG_NAME, 'option')
-total_facilities = len(facilities)
-
-# len - 1 because the 1st option is blank
-print(f"Total facilities: {total_facilities - 1}")
-btn = driver.find_element(By.XPATH, '//button[@id="SearchButton"]')
-
-for i in range(70, len(facilities)):
+for i in range(1, len(facilities)):
     print(f"Clicking Facility - {facilities[i].text}")
     facilities[i].click()
     btn.click()
