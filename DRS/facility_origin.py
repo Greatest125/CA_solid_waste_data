@@ -1,20 +1,23 @@
 #Downloads RDS (data <=2019) Facility data (with origin data) which does not track waste type from this website: https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/FacilitySummary
+
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import chromedriver_autoinstaller
 import time
-import pandas as pd
 import glob
 import os
 
+chromedriver_autoinstaller.install()  
 chromeOptions = webdriver.ChromeOptions()
 prefs = {"download.default_directory" : "/home/leeld/Downloads/files"}
 #change the directory to the whatever you want
 chromeOptions.add_experimental_option("prefs",prefs)
-chromedriver = "/usr/bin/chromedriver"
+#chromedriver = "/usr/bin/chromedriver"
 #you need to change the path of the chromedriver depending on your setup (I'm on Lubuntu 20.04)
-driver = webdriver.Chrome(executable_path=chromedriver, options=chromeOptions)
+driver = webdriver.Chrome(options=chromeOptions)
 wait = WebDriverWait(driver, 20)
 
 url = "https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/FacilitySummary"
@@ -22,7 +25,7 @@ url = "https://www2.calrecycle.ca.gov/LGCentral/DisposalReporting/Origin/Facilit
 driver.get(url)
 dropdown = driver.find_element(By.ID, "ReportType")
 dropdown.find_element(By.XPATH, "//option[. = 'Jurisdiction of Origin Waste Disposal']").click()
-select_el = wait.until(EC.presence_of_element_located((By.XPATH, '//select[@id="LandfillName"]')))
+select_el = wait.until(EC.presence_of_element_located((By.XPATH, '//select[@id="SWISNumber"]')))
 facilities = select_el.find_elements(By.TAG_NAME, 'option')
 total_facilities = len(facilities)
 
