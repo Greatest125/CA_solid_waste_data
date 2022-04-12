@@ -62,7 +62,7 @@ for file in filenames:
    #Clean up unwanted text from spreadsheet
    df = df[~df['Unnamed: 0'].isin(['Jurisdiction or Origin Waste Disposal By Facility'])]
    # appending data of excel files
-   outputxlsx = outputxlsx.append( df, ignore_index=True)
+   outputxlsx = outputxlsx.concat( df, ignore_index=True)
 print('All spreadsheets merged into one file ("RDS_FacilityReports(origin data).xlsx"')
 outputxlsx.to_excel("/home/leeld/Downloads/files/RDS_FacilityReports(origin data).xlsx", index=False)
 #Delete data files for each county
